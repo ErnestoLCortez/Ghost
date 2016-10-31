@@ -42,11 +42,40 @@ public class SimpleDictionary implements GhostDictionary {
     @Override
     public String getGoodWordStartingWith(String prefix) {
 
+        ArrayList<String> goodWords;
+
+        int mid, left = 0, right = words.size()-1;
+        do {
+            mid = (left + right) / 2;
+
+            if (words.get(mid).startsWith(prefix)) {
+                goodWords = (ArrayList<String>)words.subList(findStartIndex(prefix, mid),findEndIndex(prefix,mid));
+                break;
+            } else if (prefix.compareTo(words.get(mid)) < 0) {
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        }while(left != right);
 
 
 
         String selected = null;
         return selected;
+    }
+
+    protected int findStartIndex(String prefix, int startIndex){
+        while(words.get(startIndex).startsWith(prefix)){
+            startIndex--;
+        }
+        return startIndex;
+    }
+
+    protected int findEndIndex(String prefix, int endIndex){
+        while(words.get(endIndex).startsWith(prefix)){
+            endIndex--;
+        }
+        return endIndex;
     }
 
     private String binarySearch(String key, int left, int right){
