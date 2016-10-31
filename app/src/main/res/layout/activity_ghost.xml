@@ -8,24 +8,20 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="48sp"
         android:id="@+id/ghostText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="Stuff"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Starting game"
         android:id="@+id/gameStatus"
-        android:layout_below="@+id/ghostText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+         />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,11 +30,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Challenge"/>
+            android:text="Challenge"
+            android:onClick="challengeButton"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restart"/>
+            android:text="Restart"
+            android:onClick="onStart"/>
 
     </LinearLayout>
 
