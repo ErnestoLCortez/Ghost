@@ -1,5 +1,6 @@
 package com.google.engedu.ghost;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.R.attr.key;
+
 
 public class SimpleDictionary implements GhostDictionary {
     private ArrayList<String> words;
@@ -45,16 +46,16 @@ public class SimpleDictionary implements GhostDictionary {
         if(prefix.length() == 0){
             return words.get(new Random().nextInt(words.size()));
         }
-        //ArrayList<String> goodWords;
+
         ArrayList<String> evenWords = null;
         ArrayList<String> oddWords = null;
 
         int mid, left = 0, right = words.size()-1;
+
         do {
             mid = (left + right) / 2;
 
             if (words.get(mid).startsWith(prefix)) {
-                //goodWords = (ArrayList<String>)words.subList(findStartIndex(prefix, mid),findEndIndex(prefix,mid));
                 int startIndex = findStartIndex(prefix, mid);
                 int endIndex = findEndIndex(prefix,mid);
                 evenWords = findEvenWords(startIndex, endIndex);
