@@ -114,7 +114,7 @@ public class GhostActivity extends AppCompatActivity {
             return;
         }
 
-        String someWord = dictionary.getAnyWordStartingWith(wordFragment);
+        String someWord = dictionary.getGoodWordStartingWith(wordFragment, userTurn);
 
         if(someWord == null){
             label.setText("No possible words exist - Computer wins!");
@@ -140,10 +140,10 @@ public class GhostActivity extends AppCompatActivity {
             return;
         }
 
-        String someWord = dictionary.getAnyWordStartingWith(wordFragment);
+        String someWord = dictionary.getGoodWordStartingWith(wordFragment, userTurn);
 
         if(someWord == null){
-            label.setText("No possible words exist - User wins!");
+            label.setText("No possible words exists - User wins!");
         }
         else{
             wordFragment = someWord;

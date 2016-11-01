@@ -40,16 +40,25 @@ public class SimpleDictionary implements GhostDictionary {
     }
 
     @Override
-    public String getGoodWordStartingWith(String prefix) {
+    public String getGoodWordStartingWith(String prefix, boolean userTurn) {
 
-        ArrayList<String> goodWords;
+        if(prefix.length() == 0){
+            return words.get(new Random().nextInt(words.size()));
+        }
+        //ArrayList<String> goodWords;
+        ArrayList<String> evenWords = null;
+        ArrayList<String> oddWords = null;
 
         int mid, left = 0, right = words.size()-1;
         do {
             mid = (left + right) / 2;
 
             if (words.get(mid).startsWith(prefix)) {
-                goodWords = (ArrayList<String>)words.subList(findStartIndex(prefix, mid),findEndIndex(prefix,mid));
+                //goodWords = (ArrayList<String>)words.subList(findStartIndex(prefix, mid),findEndIndex(prefix,mid));
+                int startIndex = findStartIndex(prefix, mid);
+                int endIndex = findEndIndex(prefix,mid);
+                evenWords = findEvenWords(startIndex, endIndex);
+                oddWords = findOddWords(startIndex,endIndex);
                 break;
             } else if (prefix.compareTo(words.get(mid)) < 0) {
                 right = mid-1;
@@ -58,22 +67,53 @@ public class SimpleDictionary implements GhostDictionary {
             }
         }while(left != right);
 
+        Random random = new Random();
 
+        if(evenWords == null && oddWords == null){
+            return null;
+        } else if(evenWords == null || oddWords == null){
+            return (oddWords == null) ?
+                    evenWords.get(random.nextInt(evenWords.size())) :
+                    oddWords.get(random.nextInt(oddWords.size()));
+        } else if(userTurn){
+            return evenWords.get(random.nextInt(evenWords.size()));
+        } else{
+            return oddWords.get(random.nextInt(oddWords.size()));
+        }
+    }
 
-        String selected = null;
-        return selected;
+    protected ArrayList<String> findEvenWords(int startIndex, int endIndex){
+        ArrayList<String> evenWords = new ArrayList<>();
+
+        for(int i = startIndex; i <= endIndex; ++i){
+            if(words.get(i).length() % 2 == 0)
+                evenWords.add(words.get(i));
+        }
+
+        return evenWords;
+    }
+
+    protected ArrayList<String> findOddWords(int startIndex, int endIndex){
+        ArrayList<String> oddWords = new ArrayList<>();
+
+        for(int i = startIndex; i <= endIndex; ++i){
+            if(words.get(i).length() % 2 != 0)
+                oddWords.add(words.get(i));
+        }
+
+        return oddWords;
     }
 
     protected int findStartIndex(String prefix, int startIndex){
-        while(words.get(startIndex).startsWith(prefix)){
+        while(words.get(startIndex-1).startsWith(prefix)){
             startIndex--;
         }
         return startIndex;
     }
 
     protected int findEndIndex(String prefix, int endIndex){
-        while(words.get(endIndex).startsWith(prefix)){
-            endIndex--;
+        while(words.get(endIndex+1).startsWith(prefix)){
+            endIndex++;
         }
         return endIndex;
     }
