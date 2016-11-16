@@ -1,8 +1,7 @@
 package com.google.engedu.ghost;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Random;
 
 
@@ -38,7 +37,6 @@ public class TrieNode {
             child = new TrieNode();
             children.put(current, child);
         }
-
         child.add(s, index + 1);
     }
 
@@ -105,6 +103,7 @@ public class TrieNode {
         if(goodWords != null)
             return goodWords;
         return editedGoodWords;
+
     }
 
     public String getGoodWordStartingWith(String s) {
